@@ -2,7 +2,7 @@ console.log("Hello");
 
 function getComputerChoice() {
     let selector = Math.floor(Math.random()*3) + 1;
-    console.log(`Selector ${selector}`);
+    //console.log(`Selector ${selector}`);
     if (selector === 1) {
         return "rock";
     } else if (selector === 2) {
@@ -11,34 +11,50 @@ function getComputerChoice() {
     return "scissors";
 }
 
-// scenarios
-// rock paper l
-// rock scissors w
-// rock rock t
-// paper paper t
-// paper scissors l
-// paper rock w
-// scissors paper w
-// scissors scissors t
-// scissors rock l
-function rpsRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection) {
+    playerSelection = playerSelection.toLowerCase();
     if (((playerSelection === "rock") && (computerSelection === "paper")) || 
        ((playerSelection === "paper") && (computerSelection === "scissors")) ||
        ((playerSelection === "scissors") && (computerSelection === "rock"))) {
-        console.log(`LOSS: You had ${playerSelection} and computer had ${computerSelection}.`);
+        return [0,3, `LOSS: You had ${playerSelection} and computer had ${computerSelection}.`];
     }
     else if (((playerSelection === "rock") && (computerSelection === "scissors")) || 
        ((playerSelection === "paper") && (computerSelection === "rock")) ||
        ((playerSelection === "scissors") && (computerSelection === "paper"))) {
-        console.log(`WIN: You had ${playerSelection} and computer had ${computerSelection}.`);
+        return [3,0,`WIN: You had ${playerSelection} and computer had ${computerSelection}.`];
     }
-    else {
-        console.log(`TIE: You had ${playerSelection} and computer had ${computerSelection}.`);
-    }
+    
+    return [1,1,`TIE: You had ${playerSelection} and computer had ${computerSelection}.`];
+
 }
 
-rpsRound(getComputerChoice(), getComputerChoice());
-rpsRound(getComputerChoice(), getComputerChoice());
-rpsRound(getComputerChoice(), getComputerChoice());
-rpsRound(getComputerChoice(), getComputerChoice());
-rpsRound(getComputerChoice(), getComputerChoice());
+function game() {
+    let playerSelection = '';
+    let playerScore=0;
+    let computerScore=0;
+    let keepGoing = true;
+    let i = 0;
+    console.log(`Score-> Player ${playerScore} : Computer ${computerScore}`);
+
+    while (keepGoing) {
+        playerSelection = prompt("Choose [rock][paper][scissors]"); 
+        if ((playerSelection.toLowerCase() === "rock") || (playerSelection.toLowerCase() === "paper") || (playerSelection.toLowerCase() === "scissors")) {
+            result = playRound(playerSelection,getComputerChoice());
+            playerScore+=Number(result[0]);
+            computerScore+=Number(result[1]);
+            console.log(result[2]);
+            console.log(`Score-> Player ${playerScore} : Computer ${computerScore}`);
+            i++;
+            if (i >= 5) {
+                keepGoing = false;
+            }
+        } else {
+            console.log("Invalid selection.");
+        }
+        
+    }
+
+    console.log(`Final Score-> Player ${playerScore} : Computer ${computerScore}`);
+}
+
+game();
