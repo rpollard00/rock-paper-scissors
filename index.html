@@ -2,9 +2,22 @@
 <html lang = "en">
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
         <title>Rock Paper Scissors</title>
+        <script src="script.js" defer></script>
     </head>
     <body>
-        <script src="script.js"></script>
+        <div id="container">
+            <h1>Rock, Paper, Scissors</h1>
+            <div id="controls">
+                <button id="rock" class="control">Rock</button>
+                <button id="paper" class="control">Paper</button>
+                <button id="scissors" class="control">Scissors</button>
+            </div>
+            <div id="results"></div>
+            <div id="score">
+                <p>[SCORE] Player: <span class="scoreval" id="playerScore"></span> Computer: <span class="scoreval" id="computerScore"></span></p>
+            </div>
+        </div>
     </body>
 </html>
